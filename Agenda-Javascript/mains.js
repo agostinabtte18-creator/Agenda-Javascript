@@ -1,80 +1,71 @@
-let menu = 0;
-
-let agenda = [
-  { nombre: "Joel", telefono: "3515678963" },
-  { nombre: "Irina", telefono: "3543678723" },
-  { nombre: "Mayra", telefono: "3543543678" }
-];
-
-function agregarContacto() {
-  let nombre = prompt("Ingrese el nombre del contacto:");
-  let telefono = prompt("Ingrese el número de teléfono:");
-
-  if (nombre !== "" && telefono !== "") {
-    agenda.push({ nombre: nombre, telefono: telefono });
-    alert("Contacto agregado: " + nombre + " - " + telefono);
-  } else {
-    alert("Debe ingresar un nombre y un teléfono válidos.");
+class Turno {
+  static id = 0
+  constructor(nombre, telefono, servicio, hora) {
+    this.id = ++Turno.id
+    this.nombre = nombre
+    this.telefono = telefono
+    this.servicio = servicio
+    this.hora = hora
   }
+}
+
+let agenda = []
+
+let agendaGuardada = localStorage.getItem("agenda")
+if (agendaGuardada) {
+  agenda = JSON.parse(agendaGuardada)
+}
+
+let form = document.getElementById("formTurno")
+let listaTurnos = document.getElementById("listaTurnos")
+let mensaje = document.getElementById("mensaje")
+
+function mostrarMensaje(texto, tipo = "info") {
+  mensaje.textContent = texto
+  mensaje.className = `mensaje ${tipo}`
 }
 
 function mostrarAgenda() {
-  if (!agenda[0]) { 
-    alert("La agenda está vacía.");
+  listaTurnos.innerHTML = ""
+  agenda.forEach(turno => {
+    let li = document.createElement("li")
+    li.textContent = `${turno.nombre} - ${turno.servicio} - ${turno.hora}`
+    listaTurnos.appendChild(li)
+  })
+
+}
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault()
+
+  let nombre = document.getElementById("nombre").value
+  let telefono = document.getElementById("telefono").value
+  let servicio = document.getElementById("servicio").value
+  let hora = document.getElementById("hora").value
+
+let horarioOcupado = agenda.some(turno => turno.hora === hora)
+
+    if (horarioOcupado) {
+    mostrarMensaje(`⛔ El horario ${hora} ya está ocupado.`, "error")
   } else {
-    console.log("Contactos en la agenda:");
-    for (let i = 0; i < 1000; i++) {
-      if (!agenda[i]) {
-        break;
-      }
-      console.log((i + 1) + ". " + agenda[i].nombre + " - " + agenda[i].telefono);
-    }
-    alert("Revisa la consola para ver todos los contactos.");
+    let nuevoTurno = new Turno(nombre, telefono, servicio, hora)
+    agenda.push(nuevoTurno)
+    localStorage.setItem("agenda", JSON.stringify(agenda))
+    mostrarAgenda()
+    form.reset()
+    mostrarMensaje(`✅ Turno registrado para las ${hora}`, "exito")
   }
-}
+})
 
-function buscarContacto() {
-  let nombreBuscado = prompt("Ingrese el nombre a buscar:");
-  let encontrado = false;
+let botonBorrar = document.getElementById("borrarTodo")
 
-  for (let i = 0; i < 1000; i++) {
-    if (!agenda[i]) { 
-      break;
-    }
-    if (agenda[i].nombre.toLowerCase() === nombreBuscado.toLowerCase()) {
-      alert("Contacto encontrado: " + agenda[i].nombre + " - " + agenda[i].telefono);
-      encontrado = true;
-      break;
-    }
+document.getElementById("borrarTodo").addEventListener("click", () => {
+  if (confirm("¿Seguro que querés borrar todos los turnos?")) {
+    agenda = []
+    localStorage.clear()
+    mostrarAgenda()
+    mostrarMensaje("🧹 Se eliminaron todos los turnos.", "info")
   }
+})
 
-  if (!encontrado) {
-    alert("No se encontró ese contacto.");
-  }
-}
-
-menu = parseInt(
-  prompt("Elija una opción:\n1-Agregar contacto \n2-Mostrar agenda \n3-Buscar contacto \n4-Salir")
-);
-
-while (menu !== 4) {
-  switch (menu) {
-    case 1:
-      agregarContacto();
-      break;
-    case 2:
-      mostrarAgenda();
-      break;
-    case 3:
-      buscarContacto();
-      break;
-    default:
-      alert("Opción incorrecta");
-  }
-
-  menu = parseInt(
-    prompt("Elija una opción:\n1-Agregar contacto\n2-Mostrar agenda\n3-Buscar contacto\n4-Salir")
-  );
-}
-
-alert("¡Gracias por usar la Agenda!");
+mostrarAgenda()

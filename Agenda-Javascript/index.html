@@ -1,12 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script defer src="./mains.js"></script>
-        <title>Semana 4</title>
-    </head>
-    <body>
-        <h1>Celeste Agostina Bustamante </h1>
-    </body>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./mains.js"></script>
+  <title>Turnero</title>
+</head>
+<body>
+    <div id="title-container">
+        <h1 id="title">Agenda de Turnos 💅</h1>
+    </div>
+  
+    <h2>Servicios que se brindan:</h2>
+
+    <ul>
+        <li>Retirado (propio-externo)</li>
+        <li>Esmaltado Tradicional</li>
+        <li>Semi Permanente</li>
+        <li>Kapping en Gel</li>
+        <li>Acrilicas</li>
+        <li>Extensión Soft Gel</li>
+        <li>Press On Nails</li>
+    </ul>
+   
+    <h2>Cargue su turno:</h2>
+
+    <form id="formTurno">
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <input type="text" id="telefono" placeholder="Teléfono" required>
+        <input type="text" id="servicio" placeholder="Servicio" required>
+        <input type="text" id="hora" placeholder="Hora (ej: 14:30hs)" required>
+        <button type="submit">Cargar turno</button>
+    </form>
+
+    <h2>Turnos cargados:</h2>
+    <ul id="listaTurnos"></ul>
+
+    <p id="mensaje" class="mensaje"></p>
+
+    <button id="borrarTodo">🗑️ Borrar todos los turnos</button>
+
+
+</body>
 </html>

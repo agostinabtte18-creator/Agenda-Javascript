@@ -1,0 +1,82 @@
+
+body {
+  color: rgb(59, 57, 57);
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;     
+}
+
+title {
+  margin: 0;         
+  font-size: 2.2em;
+  font-weight: 700;
+  color:  rgb(228, 85, 166);
+  letter-spacing: 1px;
+  text-align: center;     
+}
+
+h2 {
+  color: rgb(228, 85, 166);
+  border-bottom: 2px solid rgb(222, 184, 184) ;
+  padding-bottom: 5px;
+}
+
+ul {
+  list-style: none;
+  margin: 15px 1200px 15px 20px;
+  padding: 0;
+}
+
+ul li {
+  background-color: rgb(222, 184, 184) ;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: rgb(222, 184, 184) ;
+  padding: 15px;
+  border-radius: 10px;
+  width: 280px;
+  margin: 15px auto;
+  box-shadow: 0 0 8px  rgb(49, 48, 48);
+}
+
+input {
+  padding: 8px;
+  border: 1px solid rgb(222, 184, 184);
+  border-radius: 5px;
+}
+
+button {
+  background-color:  rgb(228, 85, 166);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color:  rgb(228, 85, 166);
+}
+
+.borrarTodo {
+  display: block;
+  margin: 15px auto;
+  background-color:  rgb(228, 85, 166);
+}
+
+.borrarTodo:hover {
+  background-color:  rgb(247, 85, 107);
+}
